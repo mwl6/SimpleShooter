@@ -1,0 +1,10 @@
+{
+	"files.exclude": {
+		"E:/Coding/Unreal/Projects/SimpleShooter/.git": true,
+		"E:/Coding/Unreal/Projects/SimpleShooter/.vscode": true,
+		"E:/Coding/Unreal/Projects/SimpleShooter/Content": true,
+		"E:/Coding/Unreal/Projects/SimpleShooter/DerivedDataCache": true,
+		"E:/Coding/Unreal/Projects/SimpleShooter/Intermediate": true,
+		"E:/Coding/Unreal/Projects/SimpleShooter/Saved": true
+	}
+}
