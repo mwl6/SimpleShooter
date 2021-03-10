@@ -12,9 +12,10 @@ class SIMPLESHOOTER_API AGun : public AActor
 	GENERATED_BODY()
 
 public:
-	// Sets default values for this actor's properties
 	AGun();
 	virtual void Tick(float DeltaTime) override;
+
+	void PullTrigger();
 
 protected:
 	// Called when the game starts or when spawned
