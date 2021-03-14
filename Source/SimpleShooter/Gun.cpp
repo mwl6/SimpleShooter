@@ -42,19 +42,31 @@ void AGun::PullTrigger()
 	AController* OwnerController = OwnerPawn->GetController();
 	if(OwnerController == nullptr) return;
 
-	FVector Loc;
-	FRotator Rot;
-	OwnerController->GetPlayerViewPoint(Loc, Rot);
+	FVector Location;
+	FRotator Rotation;
+	OwnerController->GetPlayerViewPoint(Location, Rotation);
 
-	FVector End = Loc + Rot.Vector() * MaxRange;
+	FVector End = Location + Rotation.Vector() * MaxRange;
 	FHitResult Hit;
 
 	// TODO: Line trace
-	bool bSuccess = GetWorld()->LineTraceSingleByChannel(Hit, Loc, End, ECollisionChannel::ECC_GameTraceChannel11);
+	bool bSuccess = GetWorld()->LineTraceSingleByChannel(Hit, Location, End, ECollisionChannel::ECC_GameTraceChannel11);
 	if(bSuccess)
 	{
-		FVector ShotDirection = -Rot.Vector();
+		FVector ShotDirection = -Rotation.Vector();
+
+		AActor* HitActor = Hit.GetActor();
+		if(HitActor)
+		{
+			// FRadialDamageEvent - AOE
+			// FPointDamageEvent (float damage, FHitResult, FVector direction, Subclass Damage type) - Single target
+			FPointDamageEvent DamageEvent(Damage, Hit, ShotDirection, nullptr);
+			//TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser)
+			HitActor->TakeDamage(Damage, DamageEvent, OwnerController, this);
+		}
+
 		UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), ImpactEffect, Hit.Location, ShotDirection.Rotation());
+
 	}
 }
 
