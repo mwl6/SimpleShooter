@@ -27,6 +27,8 @@ public:
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 	virtual float TakeDamage(float DamageAmount, struct FDamageEvent const &DamageEvent, class AController *EventInstigator, class AActor *DamageCauser) override;
 
+	void Shoot();
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -36,7 +38,6 @@ private:
 	void MoveRight(float AxisValue);
 	void LookUp(float AxisValue);
 	void LookRight(float AxisValue);
-	void Shoot();
 
 	UPROPERTY(EditAnywhere)
 	float RotationRate = 10;
